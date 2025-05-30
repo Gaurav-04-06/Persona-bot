@@ -72,17 +72,7 @@ This ensures Gemini responds using the intended personality.
 
 ---
 
-### 5. 🧪 Testing Interactions
-
-- Example: *“What is an API?”*
-  - Response: *“Hanji! Chalo ek kaam karte hain — socho ki tum ek food delivery app bana rahe ho...”*
-
-- Example: *“What project should I build first?”*
-  - Response: *“Ek simple si baat hai — start with a To-Do App...”*
-
----
-
-### 6. 🌍 Deployment on Streamlit Cloud
+### 5. 🌍 Deployment on Streamlit Cloud
 
 Steps followed:
 1. Pushed project to GitHub.
