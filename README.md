@@ -1,89 +1,107 @@
-# 🤖 Persona Bot – Talk to Hitesh Choudhary (AI)
+# 📘 Project Documentation – Persona Bot (Hitesh Choudhary AI)
 
-This project is an AI chatbot built with **Streamlit** and **Google Gemini Free API** that simulates the personality of **Hitesh Choudhary**, a renowned Indian educator and software engineer. The chatbot responds in Hitesh’s signature Hinglish style, using storytelling, analogies, and real-world project-based advice.
-
----
-
-## 🚀 Features
-
-- 🎙️ Emulates Hitesh Choudhary's tone and teaching style
-- 🧠 Uses Gemini 1.5 Flash (Free API)
-- 💬 Streamlit-based real-time chat interface
-- 🔒 API key managed securely via `.env`
-- 🖼️ Avatar-based chat display
+This document outlines how the **Persona Bot** project was built, configured, and deployed using **Streamlit** and **Gemini Free API**.
 
 ---
 
-## 🛠️ Tech Stack
+## 🔧 Step-by-Step Setup
 
-- [Streamlit](https://streamlit.io/) – Frontend chat interface
-- [Google Generative AI (Gemini)](https://ai.google.dev/) – Language model API
-- [Python dotenv](https://pypi.org/project/python-dotenv/) – Manage secrets
+### 1. 💻 Project Structure
 
----
+The project consists of the following core files:
 
-## 📦 Installation
-
-1. **Clone the repo:**
-
-```bash
-git clone https://github.com/Gaurav-04-06/Persona-bot.git
-cd Persona-bot
 ```
-
-2. **Create a virtual environment (optional):**
-
-```bash
-python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
-```
-
-3. **Install dependencies:**
-
-```bash
-pip install -r requirements.txt
-```
-
-4. **Add your Gemini API key:**
-
-Create a `.env` file:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key_here
-```
-
-Get your key from: [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
-
-5. **Run the app:**
-
-```bash
-streamlit run main.py
+├── main.py              # Streamlit app interface
+├── chatbot.py           # Gemini-based chatbot logic
+├── requirements.txt     # Python dependencies
+├── .env                 # API key storage (locally)
+├── assets/hitesh.jpeg   # Avatar image
+└── README.md            # Project overview
 ```
 
 ---
 
-## 📁 Project Structure
+### 2. 🧠 Language Model: Gemini (Google AI)
 
-```bash
-├── assets/
-│   └── hitesh.jpeg           # Avatar for chat
-├── chatbot.py                # Handles Gemini chat logic
-├── main.py                   # Streamlit UI logic
-├── requirements.txt
-└── .env                      # Your Gemini API key
+- Used `google-generativeai` Python package.
+- Fetched API key from [https://makersuite.google.com/app/apikey](https://makersuite.google.com/app/apikey)
+- Stored in `.env` for local and **Streamlit Secrets** (TOML) for deployment.
+
+---
+
+### 3. 🔐 Managing Secrets
+
+#### Local:
+Created a `.env` file with:
+
+```
+GEMINI_API_KEY=your_api_key_here
+```
+
+Used `python-dotenv` to load the key in Python.
+
+#### Deployment (Streamlit Cloud):
+Used TOML format in the secrets editor:
+
+```toml
+GEMINI_API_KEY = "AIzaSy...your_key..."
 ```
 
 ---
 
+### 4. 🧠 Prompt Engineering
 
-## 📌 Future Plans
+Since Gemini does not support a `system` role like OpenAI, we manually inserted the prompt at the beginning of the conversation to guide the chatbot’s behavior.
 
-- Add more personas (e.g., other educators or fictional characters)
-- Voice integration 
+**Prompt Goal**: Simulate the tone, style, and teaching method of *Hitesh Choudhary*.
+
+**Prompt Characteristics**:
+- Used Hinglish (Hindi + English)
+- Included motivational tone
+- Provided teaching style with analogies, projects
+- Always started replies with “Hanji”
+
+**Prompt Injection Strategy**:
+- On the first user message, the prompt was prepended like:
+
+```python
+prompt_with_context = SYSTEM_PROMPT.strip() + "\nUser: " + user_input
+```
+
+This ensures Gemini responds using the intended personality.
 
 ---
 
-## 🙏 Acknowledgements
+### 5. 🧪 Testing Interactions
 
-- Inspired by [Hitesh Choudhary](https://www.youtube.com/c/HiteshChoudharyDotCom)
-- Built with ❤️ by [@Gaurav-04-06](https://github.com/Gaurav-04-06)
+- Example: *“What is an API?”*
+  - Response: *“Hanji! Chalo ek kaam karte hain — socho ki tum ek food delivery app bana rahe ho...”*
+
+- Example: *“What project should I build first?”*
+  - Response: *“Ek simple si baat hai — start with a To-Do App...”*
+
+---
+
+### 6. 🌍 Deployment on Streamlit Cloud
+
+Steps followed:
+1. Pushed project to GitHub.
+2. Logged into [Streamlit Community Cloud](https://streamlit.io/cloud).
+3. Connected repo and selected `main.py` as the entry point.
+4. Added API key via Secrets manager using valid TOML.
+5. Deployed successfully — app now publicly accessible.
+
+---
+
+### ✅ Outcome
+
+- Fully functional chatbot mimicking Hitesh Choudhary.
+- Real-time conversation using Gemini 1.5 Flash API.
+- Publicly hosted on Streamlit Cloud.
+- Clean UI with avatar and chat experience.
+
+---
+
+## 🧾 Author
+
+Built with ❤️ by [@Gaurav-04-06](https://github.com/Gaurav-04-06)
